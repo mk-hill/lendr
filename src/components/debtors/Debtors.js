@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import PropTypes from 'prop-types';
 import Loading from '../layout/Loading';
 
 class Debtors extends Component {
@@ -44,7 +44,7 @@ class Debtors extends Component {
         <div className="row">
           <div className="col-md-6">
             <h2>
-              <i className="fas fa-users" /> Debtors
+              <i className="fas fa-users mr-1" /> Debtors
             </h2>
           </div>
           <div className="col-md-6">
@@ -74,7 +74,7 @@ class Debtors extends Component {
                     to={`/debtor/${id}`}
                     className="btn btn-outline-info btn-sm"
                   >
-                    <i className="fas fa-arrow-circle-right" /> Details
+                    <i className="fas fa-arrow-circle-right mr-1" /> Edit
                   </Link>
                 </td>
               </tr>
