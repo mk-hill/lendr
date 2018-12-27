@@ -1,26 +1,43 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import PropTypes from 'prop-types';
+import Loading from '../layout/Loading';
 
-class People extends Component {
+class Debtors extends Component {
+  state = {
+    totalOwed: null,
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    const { debtors } = props;
+    const totalOwed = debtors
+      ? debtors.reduce((total, { balance }) => total + balance, 0)
+      : null;
+
+    return { totalOwed };
+  }
+
+  static propTypes = {
+    firestore: PropTypes.object.isRequired,
+    debtors: PropTypes.array,
+  };
+
+  formatCurrency(num) {
+    return num.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'usd',
+    });
+  }
+
   render() {
-    const debtors = [
-      {
-        id: '123123',
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'jdoe@doe.com',
-        phone: '123-123-1234',
-        balance: 59.5,
-      },
-      {
-        id: '143123',
-        firstName: 'Jane',
-        lastName: 'Doe',
-        email: 'jdoe@jane.com',
-        phone: '123-123-1434',
-        balance: 590,
-      },
-    ];
+    const {
+      formatCurrency,
+      props: { debtors },
+      state: { totalOwed },
+    } = this;
 
     return debtors ? (
       <div>
@@ -30,7 +47,12 @@ class People extends Component {
               <i className="fas fa-users" /> Debtors
             </h2>
           </div>
-          <div className="col-md-6">Total owed: $59768</div>
+          <div className="col-md-6">
+            <h5 className="text-right text-muted">
+              Total Owed:
+              <span className="text-info"> {formatCurrency(totalOwed)}</span>
+            </h5>
+          </div>
         </div>
         <table className="table table-dark table-striped">
           <thead className="">
@@ -46,12 +68,7 @@ class People extends Component {
               <tr key={id}>
                 <td>{`${firstName} ${lastName}`}</td>
                 <td>{phone}</td>
-                <td>
-                  {balance.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'usd',
-                  })}
-                </td>
+                <td>{formatCurrency(balance)}</td>
                 <td className="text-center">
                   <Link
                     to={`/debtor/${id}`}
@@ -66,9 +83,14 @@ class People extends Component {
         </table>
       </div>
     ) : (
-      <h1>Loading</h1>
+      <Loading />
     );
   }
 }
 
-export default People;
+export default compose(
+  firestoreConnect([{ collection: 'debtors' }]),
+  connect((state, props) => ({
+    debtors: state.firestore.ordered.debtors,
+  }))
+)(Debtors);
