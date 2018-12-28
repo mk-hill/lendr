@@ -9,6 +9,7 @@ import Dashboard from './components/layout/Dashboard';
 import AddDebtor from './components/debtors/AddDebtor';
 import DebtorDetails from './components/debtors/DebtorDetails';
 import EditDebtor from './components/debtors/EditDebtor';
+import Login from './components/auth/Login';
 
 import './App.css';
 import Loading from './components/layout/Loading';
@@ -39,6 +40,7 @@ class App extends Component {
                     />
                   )}
                 />
+                <Route path="/login" exact component={Login} />
                 <Route path="/add" exact component={AddDebtor} />
                 <Route
                   path="/debtor/:id"

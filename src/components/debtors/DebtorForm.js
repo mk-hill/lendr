@@ -17,7 +17,7 @@ const DebtorForm = props => {
   return (
     <div>
       <div className="row">
-        <div className="col-md-6 m-auto">
+        <div className="col-md-6 mx-auto">
           <div className={`card ${error ? 'border-danger' : 'border-dark'}`}>
             <div className="card-header">{title}</div>
             <div className="card-body">

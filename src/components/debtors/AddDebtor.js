@@ -29,12 +29,11 @@ class AddDebtor extends Component {
 
   addDebtorToDb = e => {
     e.preventDefault();
-    let { balance, ...formValues } = this.state;
-    balance = balance || 0;
+    const { balance, ...formValues } = this.state;
 
     const { firestore, history } = this.props;
     firestore
-      .add({ collection: 'debtors' }, { balance, ...formValues })
+      .add({ collection: 'debtors' }, { balance: balance || 0, ...formValues })
       .then(() => history.push('/'))
       .catch(() => this.setState({ error: true }));
   };
