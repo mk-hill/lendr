@@ -21,7 +21,7 @@ class DebtorDetails extends Component {
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-  submitBalance = e => {
+  updateBalance = e => {
     e.preventDefault();
     const {
       state: { balanceInput },
@@ -45,9 +45,21 @@ class DebtorDetails extends Component {
     this.setState({ showBalanceInput: false, error: false });
   };
 
+  deleteDebtor = () => {
+    const { debtor, firestore, history } = this.props;
+    firestore
+      .delete({ collection: 'debtors', doc: debtor.id })
+      .then(history.push('/'))
+      .catch(e =>
+        this.setState({
+          error: true,
+        })
+      );
+  };
+
   render() {
     const {
-      submitBalance,
+      updateBalance,
       onChange,
       deleteDebtor,
       props: { debtor, formatCurrency },
@@ -57,7 +69,7 @@ class DebtorDetails extends Component {
     const { firstName, lastName, email, phone, balance, id } = debtor;
 
     const balanceForm = (
-      <form onSubmit={submitBalance}>
+      <form onSubmit={updateBalance}>
         <div className="input-group">
           <input
             type="number"
@@ -98,7 +110,9 @@ class DebtorDetails extends Component {
           </div>
           <div className="col-md-6" />
         </div>
-        <div className="card mt-3 border-dark">
+        <div
+          className={`card mt-3${error ? ' border-danger' : ' border-dark'}`}
+        >
           <h3 className="card-header">{`${firstName} ${lastName}`}</h3>
           <div className="card-body">
             <div className="row">
