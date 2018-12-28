@@ -26,21 +26,24 @@ class Loading extends Component {
 
   static propTypes = {
     timeout: PropTypes.number,
+    text: PropTypes.string,
   };
 
   static defaultProps = {
     timeout: 5000,
+    text: 'Something went wrong :(',
   };
 
   render() {
     const { timedOut } = this.state;
+    const { text } = this.props;
     return timedOut ? (
       <>
         <Link to="/" className="btn btn-outline-primary">
           {' '}
           <i className="fas fa-arrow-circle-left mr-1" /> Back to Dashboard
         </Link>
-        <h2 className="text-center mt-5">Something went wrong :(</h2>
+        <h2 className="text-center mt-5">{text}</h2>
       </>
     ) : (
       <div>

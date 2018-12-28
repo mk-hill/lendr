@@ -7,16 +7,16 @@ import { firestoreConnect } from 'react-redux-firebase';
 import Loading from '../layout/Loading';
 
 class DebtorDetails extends Component {
-  state = {
-    showBalanceInput: false,
-    balanceInput: '',
-    error: false,
-  };
-
   static propTypes = {
     firestore: PropTypes.object.isRequired,
     debtor: PropTypes.object,
     formatCurrency: PropTypes.func.isRequired,
+  };
+
+  state = {
+    showBalanceInput: false,
+    balanceInput: '',
+    error: false,
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });

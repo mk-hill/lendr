@@ -36,9 +36,7 @@ class Debtors extends Component {
       <div>
         <div className="row">
           <div className="col-md-6">
-            <h2>
-              <i className="fas fa-users mr-1" /> Debtors
-            </h2>
+            <h2>Debtors</h2>
           </div>
           <div className="col-md-6">
             <h5 className="text-right text-muted">

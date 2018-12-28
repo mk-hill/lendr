@@ -11,6 +11,7 @@ import DebtorDetails from './components/debtors/DebtorDetails';
 import EditDebtor from './components/debtors/EditDebtor';
 
 import './App.css';
+import Loading from './components/layout/Loading';
 
 class App extends Component {
   formatCurrency(num) {
@@ -51,7 +52,11 @@ class App extends Component {
                 />
                 />
                 <Route path="/debtor/edit/:id" exact component={EditDebtor} />
-                <Route render={() => <p>not found</p>} />
+                <Route
+                  render={() => (
+                    <Loading timeout={1000} text="Page not found :(" />
+                  )}
+                />
               </Switch>
             </div>
           </div>
