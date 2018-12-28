@@ -23,19 +23,12 @@ class Debtors extends Component {
   static propTypes = {
     firestore: PropTypes.object.isRequired,
     debtors: PropTypes.array,
+    formatCurrency: PropTypes.func.isRequired,
   };
-
-  formatCurrency(num) {
-    return num.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'usd',
-    });
-  }
 
   render() {
     const {
-      formatCurrency,
-      props: { debtors },
+      props: { formatCurrency, debtors },
       state: { totalOwed },
     } = this;
 
@@ -58,7 +51,7 @@ class Debtors extends Component {
           <thead className="">
             <tr>
               <th>Name</th>
-              <th>Phone</th>
+              <th className="d-none d-md-block">Phone</th>
               <th>Balance</th>
               <th />
             </tr>
@@ -67,14 +60,14 @@ class Debtors extends Component {
             {debtors.map(({ id, firstName, lastName, phone, balance }) => (
               <tr key={id}>
                 <td>{`${firstName} ${lastName}`}</td>
-                <td>{phone}</td>
+                <td className="d-none d-md-block">{phone}</td>
                 <td>{formatCurrency(balance)}</td>
                 <td className="text-center">
                   <Link
                     to={`/debtor/${id}`}
                     className="btn btn-outline-info btn-sm"
                   >
-                    <i className="fas fa-arrow-circle-right mr-1" /> Edit
+                    <i className="fas fa-user mr-1" /> Details
                   </Link>
                 </td>
               </tr>

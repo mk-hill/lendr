@@ -16,6 +16,7 @@ class AddDebtor extends Component {
     phone: '',
     email: '',
     balance: '',
+    error: false,
   };
 
   onChange = e => {
@@ -32,24 +33,25 @@ class AddDebtor extends Component {
     const { firestore, history } = this.props;
     firestore
       .add({ collection: 'debtors' }, { balance, ...formValues })
-      .then(() => history.push('/'));
+      .then(() => history.push('/'))
+      .catch(() => this.setState({ error: true }));
   };
 
   render() {
     const {
       onSubmit,
       onChange,
-      state: { firstName, lastName, phone, email, balance },
+      state: { firstName, lastName, phone, email, balance, error },
     } = this;
 
     return (
       <div>
+        <Link to="/" className="btn btn-outline-primary mb-4">
+          <i className="fas fa-arrow-circle-left mr-1" /> Back to Dashboard
+        </Link>
         <div className="row">
           <div className="col-md-6 m-auto">
-            <Link to="/" className="btn btn-outline-primary mb-3">
-              <i className="fas fa-arrow-circle-left mr-1" /> Back to Dashboard
-            </Link>
-            <div className="card m-auto">
+            <div className={`card ${error ? 'border-danger' : 'border-dark'}`}>
               <div className="card-header">Add Debtor</div>
               <div className="card-body">
                 <form onSubmit={onSubmit}>

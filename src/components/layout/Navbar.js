@@ -17,7 +17,7 @@ class Navbar extends Component {
       <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <div className="container">
           <Link to="/" className="navbar-brand">
-            <i className="fas fa-hand-holding-usd mr-1 text-success" /> Lendr
+            <i className="fas fa-hand-holding-usd mr-1 text-info" /> Lendr
           </Link>
           <button className="navbar-toggler" type="button" onClick={toggleOpen}>
             <span className="navbar-toggler-icon" />

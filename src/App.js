@@ -7,10 +7,18 @@ import store from './store';
 import Navbar from './components/layout/Navbar';
 import Dashboard from './components/layout/Dashboard';
 import AddDebtor from './components/debtors/AddDebtor';
+import DebtorDetails from './components/debtors/DebtorDetails';
 
 import './App.css';
 
 class App extends Component {
+  formatCurrency(num) {
+    return num.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'usd',
+    });
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -19,8 +27,28 @@ class App extends Component {
             <Navbar />
             <div className="container">
               <Switch>
-                <Route path="/" exact component={Dashboard} />
+                <Route
+                  path="/"
+                  exact
+                  render={props => (
+                    <Dashboard
+                      {...props}
+                      formatCurrency={this.formatCurrency}
+                    />
+                  )}
+                />
                 <Route path="/add" exact component={AddDebtor} />
+                <Route
+                  path="/debtor/:id"
+                  exact
+                  render={props => (
+                    <DebtorDetails
+                      {...props}
+                      formatCurrency={this.formatCurrency}
+                    />
+                  )}
+                />
+                />
                 <Route render={() => <p>not found</p>} />
               </Switch>
             </div>
