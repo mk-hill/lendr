@@ -8,6 +8,7 @@ import Navbar from './components/layout/Navbar';
 import Dashboard from './components/layout/Dashboard';
 import AddDebtor from './components/debtors/AddDebtor';
 import DebtorDetails from './components/debtors/DebtorDetails';
+import EditDebtor from './components/debtors/EditDebtor';
 
 import './App.css';
 
@@ -49,6 +50,7 @@ class App extends Component {
                   )}
                 />
                 />
+                <Route path="/debtor/edit/:id" exact component={EditDebtor} />
                 <Route render={() => <p>not found</p>} />
               </Switch>
             </div>

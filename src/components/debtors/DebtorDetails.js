@@ -95,7 +95,7 @@ class DebtorDetails extends Component {
       <div>
         <div className="row">
           <div className="col-md-12">
-            <Link to="/" className="btn btn-outline-primary mb-3">
+            <Link to="/" className="btn btn-outline-primary mb-2">
               <i className="fas fa-arrow-circle-left mr-1" /> Back{' '}
               {window.innerWidth > 405 ? 'to Dashboard' : ''}
             </Link>
@@ -129,19 +129,22 @@ class DebtorDetails extends Component {
                   >
                     {formatCurrency(balance)}
                   </span>
-                  <small>
-                    <a
-                      href="#!"
-                      onClick={() =>
-                        this.setState(prevState => ({
-                          showBalanceInput: !prevState.showBalanceInput,
-                          balanceInput: balance,
-                        }))
-                      }
-                    >
-                      <i className="fas fa-pencil-alt text-info ml-2" />
-                    </a>
-                  </small>
+                  <a
+                    style={{
+                      display: 'inline-block',
+                      transform: 'translateY(-.2em)',
+                      fontSize: '.8em',
+                    }}
+                    href="#!"
+                    onClick={() =>
+                      this.setState(prevState => ({
+                        showBalanceInput: !prevState.showBalanceInput,
+                        balanceInput: balance,
+                      }))
+                    }
+                  >
+                    <i className="fas fa-pencil-alt fa-xs text-info ml-2" />
+                  </a>
                 </h3>
                 {showBalanceInput ? balanceForm : null}
               </div>
