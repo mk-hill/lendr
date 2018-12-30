@@ -3,11 +3,13 @@ import Debtors from '../debtors/Debtors';
 import Sidebar from '../layout/Sidebar';
 import PropTypes from 'prop-types';
 
+import formatCurrency from '../../util/formatCurrency';
+
 const Dashboard = props => {
   return (
     <div className="row">
       <div className="col-md-10">
-        <Debtors formatCurrency={props.formatCurrency} />
+        <Debtors formatCurrency={formatCurrency} />
       </div>
       <div className="col-md-2">
         <Sidebar />

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import { Provider } from 'react-redux';
+
 import store from './store';
+import { UserIsAuthenticated, UserIsNotAuthenticated } from './util/auth';
 
 import Navbar from './components/layout/Navbar';
 import Dashboard from './components/layout/Dashboard';
@@ -10,19 +11,11 @@ import AddDebtor from './components/debtors/AddDebtor';
 import DebtorDetails from './components/debtors/DebtorDetails';
 import EditDebtor from './components/debtors/EditDebtor';
 import Login from './components/auth/Login';
-import PrivateRoute from './components/auth/PrivateRoute';
 
 import './App.css';
 import Loading from './components/layout/Loading';
 
 class App extends Component {
-  formatCurrency(num) {
-    return num.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'usd',
-    });
-  }
-
   render() {
     return (
       <Provider store={store}>
@@ -34,27 +27,29 @@ class App extends Component {
                 <Route
                   path="/"
                   exact
-                  render={props => (
-                    <Dashboard
-                      {...props}
-                      formatCurrency={this.formatCurrency}
-                    />
-                  )}
+                  component={UserIsAuthenticated(Dashboard)}
                 />
-                <Route path="/login" exact component={Login} />
-                <Route path="/add" exact component={AddDebtor} />
+                <Route
+                  path="/add"
+                  exact
+                  component={UserIsAuthenticated(AddDebtor)}
+                />
                 <Route
                   path="/debtor/:id"
                   exact
-                  render={props => (
-                    <DebtorDetails
-                      {...props}
-                      formatCurrency={this.formatCurrency}
-                    />
-                  )}
+                  component={UserIsAuthenticated(DebtorDetails)}
                 />
                 />
-                <Route path="/debtor/edit/:id" exact component={EditDebtor} />
+                <Route
+                  path="/debtor/edit/:id"
+                  exact
+                  component={UserIsAuthenticated(EditDebtor)}
+                />
+                <Route
+                  path="/login"
+                  exact
+                  component={UserIsNotAuthenticated(Login)}
+                />
                 <Route
                   render={() => (
                     <Loading timeout={1000} text="Page not found :(" />

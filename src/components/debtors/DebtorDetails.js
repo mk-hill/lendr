@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
+
+import formatCurrency from '../../util/formatCurrency';
 import Loading from '../layout/Loading';
 
 class DebtorDetails extends Component {
   static propTypes = {
     firestore: PropTypes.object.isRequired,
     debtor: PropTypes.object,
-    formatCurrency: PropTypes.func.isRequired,
   };
 
   state = {
@@ -62,7 +63,7 @@ class DebtorDetails extends Component {
       updateBalance,
       onChange,
       deleteDebtor,
-      props: { debtor, formatCurrency },
+      props: { debtor },
       state: { showBalanceInput, balanceInput, error },
     } = this;
     if (!debtor) return <Loading />;
