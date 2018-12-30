@@ -41,7 +41,7 @@ class Login extends Component {
               className={`fas fa-sign-in-alt fa-2x text-${color} position-absolute `}
             />
             <div className="card-body pl-5 pr-5">
-              <h1 className="text-center">{error ? 'Try again' : 'Login'}</h1>
+              <h1 className="text-center">{error ? 'Try again' : 'Log in'}</h1>
               <form onSubmit={signIn}>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>

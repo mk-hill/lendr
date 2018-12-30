@@ -10,6 +10,7 @@ import AddDebtor from './components/debtors/AddDebtor';
 import DebtorDetails from './components/debtors/DebtorDetails';
 import EditDebtor from './components/debtors/EditDebtor';
 import Login from './components/auth/Login';
+import PrivateRoute from './components/auth/PrivateRoute';
 
 import './App.css';
 import Loading from './components/layout/Loading';

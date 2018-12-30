@@ -101,10 +101,10 @@ class DebtorDetails extends Component {
             </Link>
             <div className="btn-group float-right">
               <Link to={`/debtor/edit/${id}`} className="btn btn-info mr-3">
-                <i className="fas fa-edit mr-1" /> Edit
+                <i className="fas fa-user-cog mr-1" /> Edit
               </Link>
               <button className="btn btn-danger" onClick={deleteDebtor}>
-                <i className="fas fa-trash-alt mr-1" /> Delete
+                <i className="fas fa-user-slash mr-1" /> Delete
               </button>
             </div>
           </div>
