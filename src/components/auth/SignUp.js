@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
@@ -7,7 +8,7 @@ import { firebaseConnect } from 'react-redux-firebase';
 import { notifyUser } from '../../actions/notify';
 import Alert from '../layout/Alert';
 
-class Login extends Component {
+class SignUp extends Component {
   static propTypes = {
     firebase: PropTypes.object.isRequired,
     notify: PropTypes.object.isRequired,
@@ -25,10 +26,11 @@ class Login extends Component {
   signIn = e => {
     e.preventDefault();
     const { firebase, notifyUser } = this.props;
-    const { error, ...loginInfo } = this.state;
-    firebase.login({ ...loginInfo }).catch(e => {
-      notifyUser('Email and password does not match', 'error');
+    const { error, ...userInfo } = this.state;
+
+    firebase.createUser(userInfo).catch(e => {
       this.setState({ error: true });
+      notifyUser('User already exists.', 'error');
     });
   };
 
@@ -37,20 +39,20 @@ class Login extends Component {
       signIn,
       handleChange,
       state: { email, password, error },
-      props: { notify },
+      props: { notify, settings },
     } = this;
 
-    const color = error ? 'danger' : 'info';
+    const color = error ? 'danger' : 'success';
 
-    return (
+    return settings.allowRegistration ? (
       <div className="row">
         <div className="col-md-6 mx-auto">
           <div className={`card border-${color} p-3`}>
             <i
-              className={`fas fa-sign-in-alt fa-2x text-${color} position-absolute `}
+              className={`fas fa-id-card-alt fa-2x text-${color} position-absolute `}
             />
             <div className="card-body pl-5 pr-5">
-              <h1 className="text-center">{error ? 'Try again' : 'Log in'}</h1>
+              <h1 className="text-center">{error ? 'Try again' : 'Sign up'}</h1>
               {notify.message ? <Alert {...notify} /> : null}
               <form onSubmit={signIn}>
                 <div className="form-group">
@@ -85,6 +87,8 @@ class Login extends Component {
           </div>
         </div>
       </div>
+    ) : (
+      <Redirect to="/" />
     );
   }
 }
@@ -94,7 +98,8 @@ export default compose(
   connect(
     (state, props) => ({
       notify: state.notify,
+      settings: state.settings,
     }),
     { notifyUser }
   )
-)(Login);
+)(SignUp);

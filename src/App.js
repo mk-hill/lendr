@@ -11,6 +11,7 @@ import AddDebtor from './components/debtors/AddDebtor';
 import DebtorDetails from './components/debtors/DebtorDetails';
 import EditDebtor from './components/debtors/EditDebtor';
 import Login from './components/auth/Login';
+import SignUp from './components/auth/SignUp';
 import Settings from './components/settings/Settings';
 
 import './App.css';
@@ -55,6 +56,11 @@ class App extends Component {
                   path="/login"
                   exact
                   component={UserIsNotAuthenticated(Login)}
+                />
+                <Route
+                  path="/signup"
+                  exact
+                  component={UserIsNotAuthenticated(SignUp)}
                 />
                 <Route
                   render={() => (
