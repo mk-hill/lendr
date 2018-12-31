@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import { compose } from 'redux';
-// import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
 import DebtorForm from './DebtorForm';
@@ -10,6 +10,7 @@ import DebtorForm from './DebtorForm';
 class AddDebtor extends Component {
   static propTypes = {
     firestore: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired,
   };
 
   state = {
@@ -40,6 +41,7 @@ class AddDebtor extends Component {
 
   render() {
     const { addDebtorToDb, handleChange } = this;
+    const { disableBalanceOnAdd } = this.props.settings;
 
     return (
       <>
@@ -50,6 +52,7 @@ class AddDebtor extends Component {
           {...this.state}
           onChange={handleChange}
           onSubmit={addDebtorToDb}
+          disableAdd={disableBalanceOnAdd}
           title={'Add Debtor'}
         />
       </>
@@ -57,4 +60,9 @@ class AddDebtor extends Component {
   }
 }
 
-export default firestoreConnect()(AddDebtor);
+export default compose(
+  firestoreConnect(),
+  connect((state, props) => ({
+    settings: state.settings,
+  }))
+)(AddDebtor);

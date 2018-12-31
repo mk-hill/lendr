@@ -34,7 +34,7 @@ class Navbar extends Component {
       handleLogout,
       state: { isOpen, isAuthed },
     } = this;
-
+    const { allowRegistration } = this.props.settings;
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
         <div className="container">
@@ -65,6 +65,19 @@ class Navbar extends Component {
                     <a href="#!" className="nav-link" onClick={handleLogout}>
                       Log out
                     </a>
+                  </li>
+                </>
+              ) : allowRegistration ? (
+                <>
+                  <li className="nav-item">
+                    <Link to="/login" className="nav-link">
+                      Log in
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/signup" className="nav-link">
+                      Sign up
+                    </Link>
                   </li>
                 </>
               ) : null}

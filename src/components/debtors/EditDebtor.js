@@ -55,6 +55,7 @@ export class EditDebtor extends Component {
       updateDebtor,
       state: { firstName },
     } = this;
+    const { disableBalanceOnEdit } = this.props.settings;
 
     return firstName ? (
       <>
@@ -66,6 +67,7 @@ export class EditDebtor extends Component {
           onChange={handleChange}
           onSubmit={updateDebtor}
           title={'Edit Debtor'}
+          disableAdd={disableBalanceOnEdit}
         />
       </>
     ) : (
@@ -78,7 +80,8 @@ export default compose(
   firestoreConnect(props => [
     { collection: 'debtors', storeAs: 'debtor', doc: props.match.params.id },
   ]),
-  connect(({ firestore: { ordered } }, props) => ({
+  connect(({ firestore: { ordered }, settings }, props) => ({
     debtor: ordered.debtor && ordered.debtor[0],
+    settings,
   }))
 )(EditDebtor);

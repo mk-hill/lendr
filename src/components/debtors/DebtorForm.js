@@ -12,6 +12,7 @@ const DebtorForm = props => {
     email,
     phone,
     balance,
+    disableAdd,
   } = props;
 
   return (
@@ -71,10 +72,11 @@ const DebtorForm = props => {
                   <input
                     type="number"
                     step="0.01"
-                    className="form-control"
+                    className={`form-control${disableAdd ? ' bg-light' : ''}`}
                     name="balance"
                     onChange={onChange}
                     value={balance}
+                    disabled={disableAdd}
                   />
                 </div>
                 <input
