@@ -11,6 +11,7 @@ import AddDebtor from './components/debtors/AddDebtor';
 import DebtorDetails from './components/debtors/DebtorDetails';
 import EditDebtor from './components/debtors/EditDebtor';
 import Login from './components/auth/Login';
+import Settings from './components/settings/Settings';
 
 import './App.css';
 import Loading from './components/layout/Loading';
@@ -44,6 +45,11 @@ class App extends Component {
                   path="/debtor/edit/:id"
                   exact
                   component={UserIsAuthenticated(EditDebtor)}
+                />
+                <Route
+                  path="/settings"
+                  exact
+                  component={UserIsAuthenticated(Settings)}
                 />
                 <Route
                   path="/login"

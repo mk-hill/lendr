@@ -9,6 +9,7 @@ class Navbar extends Component {
   static propTypes = {
     firebase: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired,
   };
 
   state = {
@@ -56,6 +57,11 @@ class Navbar extends Component {
                     </Link>
                   </li>
                   <li className="nav-item">
+                    <Link to="/settings" className="nav-link">
+                      Settings
+                    </Link>
+                  </li>
+                  <li className="nav-item">
                     <a href="#!" className="nav-link" onClick={handleLogout}>
                       Log out
                     </a>
@@ -72,5 +78,8 @@ class Navbar extends Component {
 
 export default compose(
   firebaseConnect(),
-  connect((state, props) => ({ auth: state.firebase.auth }))
+  connect((state, props) => ({
+    auth: state.firebase.auth,
+    settings: state.settings,
+  }))
 )(Navbar);
