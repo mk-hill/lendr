@@ -8,6 +8,7 @@ import { firebaseConfig, rrfConfig } from './config';
 
 // Reducers
 import notifyReducer from './reducers/notify';
+import settingsReducer from './reducers/settings';
 
 firebase.initializeApp(firebaseConfig); // Init firebase instance
 const firestore = firebase.firestore(); // Init firestore
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
   notify: notifyReducer,
+  settings: settingsReducer,
 });
 
 // Create initial state

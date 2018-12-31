@@ -1,11 +1,11 @@
-import { NOTIFY_USER } from '../actions/constants';
+import { NOTIFY_USER } from '../actions/types';
 
 const initialState = {
   message: null,
   messageType: null,
 };
 
-function notifyReducer(state = initialState, action) {
+export default function(state = initialState, action) {
   const { messageType, message } = action;
   switch (action.type) {
     case NOTIFY_USER:
@@ -18,5 +18,3 @@ function notifyReducer(state = initialState, action) {
       return state;
   }
 }
-
-export default notifyReducer;

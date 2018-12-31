@@ -1,4 +1,4 @@
-import { NOTIFY_USER } from './constants';
+import { NOTIFY_USER } from './types';
 
 export const notifyUser = (message, messageType) => {
   return {
