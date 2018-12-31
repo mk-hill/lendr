@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { compose } from 'redux';
-// import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
+
+import { notifyUser } from '../../actions/notify';
+import Alert from '../layout/Alert';
 
 class Login extends Component {
   static propTypes = {
@@ -19,9 +22,12 @@ class Login extends Component {
 
   signIn = e => {
     e.preventDefault();
-    const { firebase } = this.props;
+    const { firebase, notifyUser } = this.props;
     const { error, ...loginInfo } = this.state;
-    firebase.login({ ...loginInfo }).catch(e => this.setState({ error: true }));
+    firebase.login({ ...loginInfo }).catch(e => {
+      notifyUser('Email and password does not match', 'error');
+      this.setState({ error: true });
+    });
   };
 
   render() {
@@ -29,6 +35,7 @@ class Login extends Component {
       signIn,
       handleChange,
       state: { email, password, error },
+      props: { notify },
     } = this;
 
     const color = error ? 'danger' : 'info';
@@ -42,6 +49,7 @@ class Login extends Component {
             />
             <div className="card-body pl-5 pr-5">
               <h1 className="text-center">{error ? 'Try again' : 'Log in'}</h1>
+              {notify.message ? <Alert {...notify} /> : null}
               <form onSubmit={signIn}>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
@@ -79,4 +87,12 @@ class Login extends Component {
   }
 }
 
-export default firebaseConnect()(Login);
+export default compose(
+  firebaseConnect(),
+  connect(
+    (state, props) => ({
+      notify: state.notify,
+    }),
+    { notifyUser }
+  )
+)(Login);
