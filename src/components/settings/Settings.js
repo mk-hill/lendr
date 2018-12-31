@@ -67,7 +67,7 @@ export class Settings extends Component {
                 />
               </div>
               <div className="form-group">
-                <label>Allow Registration</label>
+                <label>Disable Balance on Edit</label>
                 <input
                   className="ml-2"
                   type="checkbox"

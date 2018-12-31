@@ -29,8 +29,17 @@ const rootReducer = combineReducers({
   settings: settingsReducer,
 });
 
-// Create initial state
-const initialState = {}; // todo grab settings from local storage
+// If no settings exist on local storage, set default
+if (localStorage.getItem('settings') === null) {
+  const defaultSettings = {
+    disableBalanceOnAdd: true,
+    disableBalanceOnEdit: false,
+    allowRegistration: false,
+  };
+  localStorage.setItem('settings', JSON.stringify(defaultSettings));
+}
+
+const initialState = { settings: JSON.parse(localStorage.getItem('settings')) };
 
 // Create store
 const store = createStoreWithFirebase(
