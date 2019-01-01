@@ -1,5 +1,6 @@
 import { createStore, combineReducers, compose } from 'redux';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import 'firebase/firestore';
 import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
 import { reduxFirestore, firestoreReducer } from 'redux-firestore';
@@ -46,8 +47,8 @@ const store = createStoreWithFirebase(
   rootReducer,
   initialState,
   compose(
-    reactReduxFirebase(firebase),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    reactReduxFirebase(firebase)
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 

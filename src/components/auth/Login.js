@@ -20,6 +20,15 @@ class Login extends Component {
     error: false,
   };
 
+  // Set default guest login
+  componentDidMount() {
+    const defaultLogin = {
+      email: 'guest@guest.com',
+      password: 'guestpassword',
+    };
+    this.setState(defaultLogin);
+  }
+
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
   signIn = e => {
@@ -62,6 +71,7 @@ class Login extends Component {
                     required
                     value={email}
                     onChange={handleChange}
+                    autoComplete="username"
                   />
                 </div>
                 <div className="form-group">
@@ -73,6 +83,7 @@ class Login extends Component {
                     required
                     value={password}
                     onChange={handleChange}
+                    autoComplete="current-password"
                   />
                 </div>
                 <input

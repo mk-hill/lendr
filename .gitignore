@@ -24,3 +24,8 @@ yarn-error.log*
 .eslintrc.json
 
 src/config.js
+.firebase/
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules

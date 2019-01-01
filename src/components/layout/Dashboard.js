@@ -1,7 +1,6 @@
 import React from 'react';
 import Debtors from '../debtors/Debtors';
 import Sidebar from '../layout/Sidebar';
-import PropTypes from 'prop-types';
 
 import formatCurrency from '../../util/formatCurrency';
 
@@ -16,10 +15,6 @@ const Dashboard = props => {
       </div>
     </div>
   );
-};
-
-Dashboard.propTypes = {
-  formatCurrency: PropTypes.func.isRequired,
 };
 
 export default Dashboard;
