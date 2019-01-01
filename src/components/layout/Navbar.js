@@ -26,6 +26,7 @@ class Navbar extends Component {
   handleLogout = e => {
     e.preventDefault();
     this.props.firebase.logout();
+    this.toggleOpen();
   };
 
   render() {
@@ -52,12 +53,16 @@ class Navbar extends Component {
               {isAuthed ? (
                 <>
                   <li className="nav-item">
-                    <Link to="/" className="nav-link">
+                    <Link to="/" className="nav-link" onClick={toggleOpen}>
                       Dashboard
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/settings" className="nav-link">
+                    <Link
+                      to="/settings"
+                      className="nav-link"
+                      onClick={toggleOpen}
+                    >
                       Settings
                     </Link>
                   </li>
@@ -70,12 +75,16 @@ class Navbar extends Component {
               ) : allowRegistration ? (
                 <>
                   <li className="nav-item">
-                    <Link to="/login" className="nav-link">
+                    <Link to="/login" className="nav-link" onClick={toggleOpen}>
                       Log in
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/signup" className="nav-link">
+                    <Link
+                      to="/signup"
+                      className="nav-link"
+                      onClick={toggleOpen}
+                    >
                       Sign up
                     </Link>
                   </li>

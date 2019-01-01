@@ -64,6 +64,7 @@ class SignUp extends Component {
                     required
                     value={email}
                     onChange={handleChange}
+                    autoComplete="username"
                   />
                 </div>
                 <div className="form-group">
@@ -75,6 +76,7 @@ class SignUp extends Component {
                     required
                     value={password}
                     onChange={handleChange}
+                    autoComplete="current-password"
                   />
                 </div>
                 <input
